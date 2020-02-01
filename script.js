@@ -10,7 +10,7 @@ var plateau = [
 var hauteur_plateau = plateau.length;
 var largeur_plateau = plateau[0].length;
 
-var verifierVictoire = function(plateau, joueurCourant)
+var verifierVictoire = function(plateau, joueurCourant) {
 	
 	var coords_victoire = [];
 	var victoire = false;
