@@ -10,7 +10,7 @@ var plateau = [
 var hauteur_plateau = plateau.length;
 var largeur_plateau = plateau[0].length;
 
-var verifierVictoire = function(plateau, valeur_joueur) {
+var verifierVictoire = function(plateau, joueurCourant)
 	
 	var coords_victoire = [];
 	var victoire = false;
@@ -19,13 +19,13 @@ var verifierVictoire = function(plateau, valeur_joueur) {
 	
 	for(var y = 0; y < hauteur_plateau-3; y++) {
 		for(var x = 0; x < largeur_plateau-3; x++) {
-			if(plateau[y][x] == valeur_joueur) {
+			if(plateau[y][x] == joueurCourant) {
 				
 				var alignees = true;
 				var i = 1;
 				
 				while(alignees == true && i < 4) {
-					if(plateau[y+i][x+i] != valeur_joueur) {
+					if(plateau[y+i][x+i] != joueurCourant) {
 						alignees = false;
 					}
 					i++;
@@ -44,13 +44,13 @@ var verifierVictoire = function(plateau, valeur_joueur) {
 	
 	for(var y = 0; y < hauteur_plateau-3; y++) {
 		for(var x = 3; x < largeur_plateau; x++) {
-			if(plateau[y][x] == valeur_joueur) {
+			if(plateau[y][x] == joueurCourant) {
 				
 				var alignees = true;
 				var i = 1;
 				
 				while(alignees == true && i < 4) {
-					if(plateau[y+i][x-i] != valeur_joueur) {
+					if(plateau[y+i][x-i] != joueurCourant) {
 						alignees = false;
 					}
 					i++;
@@ -69,13 +69,13 @@ var verifierVictoire = function(plateau, valeur_joueur) {
 	
 	for(var y = 0; y < hauteur_plateau-3; y++) {
 		for(var x = 0; x < largeur_plateau; x++) {
-			if(plateau[y][x] == valeur_joueur) {
+			if(plateau[y][x] == joueurCourant) {
 				
 				var alignees = true;
 				var i = 1;
 				
 				while(alignees == true && i < 4) {
-					if(plateau[y+i][x] != valeur_joueur) {
+					if(plateau[y+i][x] != joueurCourant) {
 						alignees = false;
 					}
 					i++;
@@ -94,13 +94,13 @@ var verifierVictoire = function(plateau, valeur_joueur) {
 	
 	for(var y = 0; y < hauteur_plateau; y++) {
 		for(var x = 0; x < largeur_plateau-3; x++) {
-			if(plateau[y][x] == valeur_joueur) {
+			if(plateau[y][x] == joueurCourant) {
 				
 				var alignees = true;
 				var i = 1;
 				
 				while(alignees == true && i < 4) {
-					if(plateau[y][x+i] != valeur_joueur) {
+					if(plateau[y][x+i] != joueurCourant) {
 						alignees = false;
 					}
 					i++;
