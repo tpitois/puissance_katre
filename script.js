@@ -46,7 +46,7 @@ var creerPlateau = function() {
 }
 
 var colonnesLibres = function() {
-	console.log("");
+	
 }
 
 var ajouterPion = function(rang_colonne) {
@@ -57,9 +57,7 @@ var ajouterPion = function(rang_colonne) {
 				i++;
 			}
 			plateau[i-1][rang_colonne] = joueurCourant;
-			
-			console.log(plateau);
-			
+						
 			var cellule = document.getElementById(String(i-1)+String(rang_colonne));
 			
 			switch (joueurCourant) {
@@ -206,7 +204,7 @@ var prochainJoueur = function() {
 			break;
 	}
 	document.body.style.background = couleur_joueurs[joueurCourant];
-	CollonnesLibres();
+	colonnesLibres();
 }
 
 
