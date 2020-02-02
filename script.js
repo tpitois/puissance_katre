@@ -1,27 +1,32 @@
+var couleur_joueurs = {1: "purple", 2:"green"};
+
+var colonnes_libres = [];
 var coords_victoire = [];
-var victoire = false;
-
-var colonnes_libres = [0, 1, 2, 3, 4, 5, 6];
-
-var joueurCourant = 1;
-var couleur_joueurs = {1: "red", 2:"blue"};
-
-
-var hauteur_plateau = 6;
-var largeur_plateau = 7;
-
 var plateau = [];
 
+var joueurCourant = 1;
+var hauteur_plateau = 10;
+var largeur_plateau = 10;
+
+var victoire = false;
+
 var initialisation = function() {
+	// colonnes_libres
+	
+	for (var i = 0; i < largeur_plateau; i++) {
+		colonnes_libres.push(i)
+	}
+	
 	document.body.style.background = couleur_joueurs[joueurCourant];
+	
 	creerPlateau();
 }
 
 
 var creerPlateau = function() {
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i < hauteur_plateau; i++) {
 		plateau.push([]);
-		for (var j = 0; j < 7; j++) {
+		for (var j = 0; j < largeur_plateau; j++) {
 			plateau[i].push(0);
 		}
 	}
@@ -46,7 +51,7 @@ var creerPlateau = function() {
 }
 
 var colonnesLibres = function() {
-	
+
 }
 
 var ajouterPion = function(rang_colonne) {
@@ -62,12 +67,13 @@ var ajouterPion = function(rang_colonne) {
 			
 			switch (joueurCourant) {
 				case 1:
-					cellule.classList.add(couleur_joueurs[1]);
+					cellule.style.background = couleur_joueurs[joueurCourant];
 					break;
 				case 2:
-					cellule.classList.add(couleur_joueurs[2]);
+					cellule.style.background = couleur_joueurs[joueurCourant];
 					break;
 			}
+			colonnesLibres();
 			verifierVictoire();
 		}
 	}
@@ -204,7 +210,6 @@ var prochainJoueur = function() {
 			break;
 	}
 	document.body.style.background = couleur_joueurs[joueurCourant];
-	colonnesLibres();
 }
 
 
