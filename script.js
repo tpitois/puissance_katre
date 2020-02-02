@@ -1,43 +1,82 @@
-var plateau = [
-[0, 0, 0, 0, 0, 0, 0],
-[1, 1, 1, 1, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0],
-];
+var coords_victoire = [];
+var victoire = false;
+
+var colonnes_libres = [0, 1, 2, 3, 4, 5, 6];
+
+var joueurCourant = 1;
+var couleur_joueurs = {1: "red", 2:"blue"};
+
 
 var hauteur_plateau = 6;
 var largeur_plateau = 7;
 
-var creerPlateau = function(hauteur_plateau, largeur_plateau) {
-	
-	var plateau = [];
-	
-	for (var i = 0; i < hauteur_plateau; i++) {
+var plateau = [];
+
+var initialisation = function() {
+	document.body.style.background = couleur_joueurs[joueurCourant];
+	creerPlateau();
+}
+
+
+var creerPlateau = function() {
+	for (var i = 0; i < 6; i++) {
 		plateau.push([]);
-		for (var j = 0; j < largeur_plateau; j++) {
+		for (var j = 0; j < 7; j++) {
 			plateau[i].push(0);
 		}
 	}
 	
-	table = document.getElementById("plateau");
+	var table = document.getElementsByTagName("table")[0];
 
 	for (i = 0; i < hauteur_plateau; i++) {
-		tr = document.createElement('TR');
+		tr = document.createElement("tr");
 		for (j = 0; j < largeur_plateau; j++) {
-			td = document.createElement('TD');
+			td = document.createElement("td");
 			td.id= String(i)+String(j);
+			td.onclick = ajouterPion(j);
+			div = document.createElement("div");
+						div.onmouseenter = selectionner(j);
+			div.onmouseout = deselectionner(j);
+			div.className = String(j);
+			td.appendChild(div);
 			tr.appendChild(td);
 		}
 		table.appendChild(tr);
 	}
 }
 
-var verifierVictoire = function(joueurCourant) {
-	
-	var coords_victoire = [];
-	var victoire = false;
+var colonnesLibres = function() {
+	console.log("");
+}
+
+var ajouterPion = function(rang_colonne) {
+	var callback = function() {
+		if (colonnes_libres.includes(rang_colonne) == true) {
+			var i = 0
+			while (i < hauteur_plateau && plateau[i][rang_colonne] == 0) {
+				i++;
+			}
+			plateau[i-1][rang_colonne] = joueurCourant;
+			
+			console.log(plateau);
+			
+			var cellule = document.getElementById(String(i-1)+String(rang_colonne));
+			
+			switch (joueurCourant) {
+				case 1:
+					cellule.classList.add(couleur_joueurs[1]);
+					break;
+				case 2:
+					cellule.classList.add(couleur_joueurs[2]);
+					break;
+			}
+			verifierVictoire();
+		}
+	}
+	return callback;
+}
+
+var verifierVictoire = function() {
 	
 	//aligneess descendantes
 	
@@ -145,5 +184,54 @@ var verifierVictoire = function(joueurCourant) {
 		victoire = true;
 	}
 	
-	return [coords_victoire, victoire];
+	if (victoire == true) {
+		afficherVictoire();
+	} else {
+		prochainJoueur();
+	}
+}
+
+var afficherVictoire = function() {
+	colonnes_libres = [];
+	console.log(joueurCourant);
+}
+
+var prochainJoueur = function() {
+	switch (joueurCourant) {
+		case 1:
+			joueurCourant = 2;
+			break;
+		case 2:
+			joueurCourant = 1;
+			break;
+	}
+	document.body.style.background = couleur_joueurs[joueurCourant];
+	CollonnesLibres();
+}
+
+
+var selectionner = function(rang_colonne) {
+	var callback = function() {
+		if (colonnes_libres.includes(rang_colonne) == true) {
+			colonne = document.getElementsByClassName(String(rang_colonne));
+			for (var i = 0; i < colonne.length; i++) {
+				if (colonne[i].classList.contains("selection") == false) {
+					colonne[i].classList.add("selection");
+				}
+			}
+		}
+	}
+	return callback;
+}
+
+var deselectionner = function(rang_colonne) {
+	var callback = function() {
+		colonne = document.getElementsByClassName(String(rang_colonne));
+		for (var i = 0; i < colonne.length; i++) {
+			if (colonne[i].classList.contains("selection") == true) {
+				colonne[i].classList.remove("selection");
+			}
+		}
+	}
+	return callback;
 }
